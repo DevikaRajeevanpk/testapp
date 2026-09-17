@@ -1,0 +1,35 @@
+---
+description: Only edit the custom Frappe app; never change ERPNext or Frappe core
+alwaysApply: true
+---
+
+# Custom App Only
+
+This repository is the custom Frappe app **testapp**. Change only this app. Do not edit, patch, or overwrite standard **Frappe** or **ERPNext** source.
+
+## Allowed
+
+- Files under `testapp/` (DocTypes, hooks, patches, APIs, public assets, fixtures)
+- App-level repo files that belong to this app (`pyproject.toml`, tests, CI for this app)
+
+Use Frappe extension points instead of core edits: `hooks.py`, custom DocTypes, Client Scripts, Server Scripts, overrides listed in hooks (`override_doctype_class`, `override_whitelisted_methods`, `doc_events`, `doctype_js`), and fixtures.
+
+## Forbidden
+
+Never modify files in other bench apps, including:
+
+- `apps/frappe/**`
+- `apps/erpnext/**`
+- Any other standard/third-party app that is not `testapp`
+
+```python
+# ❌ BAD — editing Frappe/ERPNext core
+# apps/frappe/frappe/model/document.py
+# apps/erpnext/erpnext/accounts/doctype/sales_invoice/sales_invoice.py
+
+# ✅ GOOD — extend from this app
+# testapp/hooks.py  (doc_events, override_doctype_class, …)
+# testapp/testapp/overrides/sales_invoice.py
+```
+
+If a request requires changing Frappe or ERPNext core, stop, say so, and implement the equivalent in **testapp** instead.
