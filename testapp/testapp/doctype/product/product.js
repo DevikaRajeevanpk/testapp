@@ -31,8 +31,12 @@ function render_qr_code(frm) {
 		return;
 	}
 
-	const src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(data)}`;
+	const src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(
+		data
+	)}`;
 	field.$wrapper.html(
-		`<img src="${src}" alt="${__("Product QR Code")}" style="max-width: 160px; height: auto;" />`
+		`<img src="${src}" alt="${__(
+			"Product QR Code"
+		)}" style="max-width: 160px; height: auto;" />`
 	);
 }
